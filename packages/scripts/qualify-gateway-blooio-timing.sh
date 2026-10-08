@@ -16,7 +16,7 @@ const source=process.env.TASK_SOURCE,target=process.env.TASK_CAPSULE,evidence=pr
 const lock=Bun.JSONC.parse(fs.readFileSync(path.join(source,'bun.lock'),'utf8'));
 const entries=Object.values(lock.packages);const manifests={};
 function copy(p){const dst=path.join(target,p);fs.mkdirSync(path.dirname(dst),{recursive:true});fs.cpSync(path.join(source,p),dst,{recursive:true});}
-function exact(name,range){const valid=e=>Array.isArray(e)&&typeof e[0]==='string'&&e[0].startsWith(name+'@')&&Bun.semver.satisfies(e[0].slice(name.length+1),range);const primary=lock.packages[name];const candidates=entries.filter(valid);if(valid(primary))return primary[0].slice(name.length+1);const versions=[...new Set(candidates.map(e=>e[0].slice(name.length+1)))];if(versions.length===1)return versions[0];throw Error('LOCK_RESOLUTION_NOT_UNIQUE:'+name);}
+function exact(name,range){range=lock.overrides?.[name]??range;const valid=e=>Array.isArray(e)&&typeof e[0]==='string'&&e[0].startsWith(name+'@')&&Bun.semver.satisfies(e[0].slice(name.length+1),range);const primary=lock.packages[name];const candidates=entries.filter(valid);if(valid(primary))return primary[0].slice(name.length+1);const versions=[...new Set(candidates.map(e=>e[0].slice(name.length+1)))];if(versions.length===1)return versions[0];throw Error('LOCK_RESOLUTION_NOT_UNIQUE:'+name);}
 for(const p of ['packages/cloud/services/gateway-webhook','packages/cloud/services/_common','packages/core','packages/cloud/sdk']){const m=JSON.parse(fs.readFileSync(path.join(source,p,'package.json'),'utf8'));manifests[p]=m;}
 const originalService=structuredClone(manifests['packages/cloud/services/gateway-webhook']);
 for(const p of ['packages/cloud/services/gateway-webhook/src','packages/cloud/services/gateway-webhook/__tests__/blooio-adapter.test.ts','packages/cloud/services/gateway-webhook/tsconfig.json','packages/cloud/services/_common/src','packages/cloud/sdk/src','packages/core/src/errors.ts','packages/core/src/security/log-redaction.ts','biome.json'])copy(p);
@@ -25,7 +25,7 @@ for(const [p,m]of Object.entries(manifests)){delete m.devDependencies;if(p==='pa
 fs.writeFileSync(path.join(target,'packages/core/src/protocol.ts'),'export * from "./errors.ts"; export * from "./security/log-redaction.ts";\n');
 for(const [p,m]of Object.entries(manifests))fs.writeFileSync(path.join(target,p,'package.json'),JSON.stringify(m));
 const tools={};for(const name of ['@biomejs/biome','typescript','@types/node','@types/hashring','bun-types'])tools[name]=exact(name,originalService.devDependencies[name]);
-fs.writeFileSync(path.join(target,'package.json'),JSON.stringify({name:'gateway-public-qualification',private:true,workspaces:Object.keys(manifests),devDependencies:tools}));
+fs.writeFileSync(path.join(target,'package.json'),JSON.stringify({name:'gateway-public-qualification',private:true,workspaces:Object.keys(manifests),devDependencies:tools,overrides:Object.fromEntries(Object.entries(lock.overrides??{}).filter(([,value])=>!value.startsWith('workspace:')))}));
 fs.writeFileSync(path.join(target,'bunfig.toml'),'[install]\nauto = "disable"\n');
 fs.copyFileSync(path.join(source,'bun.lock'),path.join(evidence,'reviewed-public-source.bun.lock'));
 fs.writeFileSync(path.join(evidence,'direct-version-pins.json'),JSON.stringify({tools,productionManifests:manifests},null,2));
