@@ -33,7 +33,7 @@ jobs:
           curl --fail --silent --show-error --max-time 30 \
             "https://raw.githubusercontent.com/elizaOS/eliza/$QUALIFICATION_SHA/packages/scripts/qualify-gateway-blooio-timing.sh" \
             --output "$RUNNER_TEMP/gateway-qualification.sh"
-          printf '%s  %s\n' 3262d381f921e1b59b202ae1e7e73ebd39bc22bb6cc9ee260bcbc3a5c002cdd9 "$RUNNER_TEMP/gateway-qualification.sh" | sha256sum --check --status
+          printf '%s  %s\n' ebcb69cf811313d3c19775930d6b94325094783cbfced1b38ac57ea243b7baf6 "$RUNNER_TEMP/gateway-qualification.sh" | sha256sum --check --status
           bash -n "$RUNNER_TEMP/gateway-qualification.sh"
           command -v timeout
           command -v unshare
