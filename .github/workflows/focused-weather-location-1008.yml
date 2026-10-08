@@ -56,6 +56,22 @@ jobs:
           init-submodules: "false"
           publish-caches: "false"
           publish-bun-install-cache: "false"
+      - name: Check changed formatting before prerequisite builds
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/weather-location-evidence"
+          task_log="$RUNNER_TEMP/weather-location-evidence/changed-biome.log"
+          if timeout --kill-after=10s 60s node_modules/.bin/biome check --vcs-enabled=false \
+            packages/cloud/shared/src/lib/services/shared-runtime/shared-realtime-grounding.ts \
+            packages/cloud/shared/src/lib/services/shared-runtime/shared-realtime-grounding.weather-location.test.ts > "$task_log" 2>&1; then
+            test "$(wc -c < "$task_log")" -le 1048576
+          else
+            task_exit=$?
+            test "$(wc -c < "$task_log")" -le 1048576
+            tail -80 "$task_log"
+            exit "$task_exit"
+          fi
       - name: Build only the real Core prerequisite closure
         shell: bash
         run: |
@@ -123,9 +139,6 @@ jobs:
             fi
             test "$(du -cb "$TASK_EVIDENCE/"*.log | tail -1 | cut -f1)" -le 1048576
           }
-          check changed-biome node_modules/.bin/biome check --vcs-enabled=false \
-            packages/cloud/shared/src/lib/services/shared-runtime/shared-realtime-grounding.ts \
-            packages/cloud/shared/src/lib/services/shared-runtime/shared-realtime-grounding.weather-location.test.ts
           cd packages/cloud/shared
           check weather-owning bun test src/lib/services/shared-runtime/shared-realtime-grounding.weather-location.test.ts --timeout 60000
           grep -Eq '^[[:space:]]*[1-9][0-9]* pass[[:space:]]*$' "$TASK_EVIDENCE/weather-owning.log"
