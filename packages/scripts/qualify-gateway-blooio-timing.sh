@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
-SOURCE_SHA=a2a07e405122dc4eb1712e673f41be9a22376193
+SOURCE_SHA=b06f801c5aef2b61de9b8b38a0aa250a6ad5ac23
 TASK_SOURCE="$1"
 TASK_CAPSULE="$2"
 TASK_EVIDENCE="$3"
@@ -19,7 +19,7 @@ function copy(p){const dst=path.join(target,p);fs.mkdirSync(path.dirname(dst),{r
 function exact(name,range){range=lock.overrides?.[name]??range;const valid=e=>Array.isArray(e)&&typeof e[0]==='string'&&e[0].startsWith(name+'@')&&Bun.semver.satisfies(e[0].slice(name.length+1),range);const primary=lock.packages[name];const candidates=entries.filter(valid);if(valid(primary))return primary[0].slice(name.length+1);const versions=[...new Set(candidates.map(e=>e[0].slice(name.length+1)))];if(versions.length===1)return versions[0];throw Error('LOCK_RESOLUTION_NOT_UNIQUE:'+name);}
 for(const p of ['packages/cloud/services/gateway-webhook','packages/cloud/services/_common','packages/core','packages/cloud/sdk']){const m=JSON.parse(fs.readFileSync(path.join(source,p,'package.json'),'utf8'));manifests[p]=m;}
 const originalService=structuredClone(manifests['packages/cloud/services/gateway-webhook']);
-for(const p of ['packages/cloud/services/gateway-webhook/src','packages/cloud/services/gateway-webhook/__tests__/blooio-adapter.test.ts','packages/cloud/services/gateway-webhook/tsconfig.json','packages/cloud/services/_common/src','packages/cloud/sdk/src','packages/core/src/errors.ts','packages/core/src/security/log-redaction.ts','biome.json'])copy(p);
+for(const p of ['packages/cloud/services/gateway-webhook/src','packages/cloud/services/gateway-webhook/__tests__/blooio-adapter.test.ts','packages/cloud/services/gateway-webhook/tsconfig.json','packages/cloud/services/_common/src','packages/cloud/sdk/src','packages/core/src/errors.ts','packages/core/src/utils/errors.ts','packages/core/src/security/log-redaction.ts','biome.json'])copy(p);
 for(const p of ['packages/biome.json','packages/cloud/biome.json','packages/cloud/services/biome.json'])if(fs.existsSync(path.join(source,p)))copy(p);
 for(const [p,m]of Object.entries(manifests)){delete m.devDependencies;if(p==='packages/core')manifests[p]={name:m.name,version:m.version,type:'module',exports:{'.':'./src/errors.ts','./errors':'./src/errors.ts','./protocol':'./src/protocol.ts','./security/log-redaction':'./src/security/log-redaction.ts'}};else for(const [name,range]of Object.entries(m.dependencies??{}))if(!range.startsWith('workspace:'))m.dependencies[name]=exact(name,range);}
 fs.writeFileSync(path.join(target,'packages/core/src/protocol.ts'),'export * from "./errors.ts"; export * from "./security/log-redaction.ts";\n');
