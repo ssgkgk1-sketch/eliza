@@ -24,7 +24,7 @@ jobs:
       - name: Checkout exact reviewed public source
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
-          ref: 4756aa5b1415eca0327354b83a81c363bc9e3b75
+          ref: 7e7d3ff63aeebdc3b5828f61e77548a90a9724d3
           fetch-depth: 1
           submodules: false
           persist-credentials: false
@@ -32,7 +32,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          test "$(git rev-parse HEAD)" = 4756aa5b1415eca0327354b83a81c363bc9e3b75
+          test "$(git rev-parse HEAD)" = 7e7d3ff63aeebdc3b5828f61e77548a90a9724d3
           command -v timeout
           command -v unshare
           command -v ip
@@ -97,7 +97,7 @@ jobs:
           test -f plugins/plugin-google-workspace/dist/gmail-attachments.js
           test -f plugins/plugin-wallet/dist/lib/market-overview.js
           test -f plugins/plugin-elizacloud/dist/cloud-config/domain-contract.js
-          test "$(git rev-parse HEAD)" = 4756aa5b1415eca0327354b83a81c363bc9e3b75
+          test "$(git rev-parse HEAD)" = 7e7d3ff63aeebdc3b5828f61e77548a90a9724d3
           git diff --quiet HEAD
       - name: Focused weather module, public types and whole Worker offline
         shell: bash
@@ -107,7 +107,7 @@ jobs:
           cat > "$task_script" <<'SCRIPT'
           set -euo pipefail
           cd "$TASK_WORKSPACE"
-          test "$(git rev-parse HEAD)" = 4756aa5b1415eca0327354b83a81c363bc9e3b75
+          test "$(git rev-parse HEAD)" = 7e7d3ff63aeebdc3b5828f61e77548a90a9724d3
           test "$(bun --version)" = 1.4.2
           test "$(node --version)" = v24.15.0
           mkdir -p "$TASK_EVIDENCE"
