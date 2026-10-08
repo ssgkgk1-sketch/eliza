@@ -32,7 +32,17 @@ tools.vitest=exact('vitest',originalShared.devDependencies.vitest);
 fs.writeFileSync(path.join(target,'package.json'),JSON.stringify({name:'gateway-public-qualification',private:true,workspaces:Object.keys(manifests),devDependencies:tools,overrides:Object.fromEntries(Object.entries(lock.overrides??{}).filter(([,value])=>!value.startsWith('workspace:')))}));
 fs.writeFileSync(path.join(target,'bunfig.toml'),'[install]\nauto = "disable"\n');
 fs.copyFileSync(path.join(source,'bun.lock'),path.join(evidence,'reviewed-public-source.bun.lock'));
-fs.copyFileSync(path.join(source,'bun.lock'),path.join(target,'bun.lock'));
+// Explicit metadata projection: original external package records remain unchanged.
+const projected=structuredClone(lock);projected.workspaces={};
+for(const p of ['',...Object.keys(manifests)]){const m=JSON.parse(fs.readFileSync(path.join(target,p,'package.json'),'utf8'));projected.workspaces[p]=Object.fromEntries(['name','version','dependencies','devDependencies','optionalDependencies'].filter(k=>m[k]!==undefined).map(k=>[k,m[k]]));}
+const keptWorkspaceNames=new Set(Object.values(manifests).map(m=>m.name));
+for(const [k,e]of Object.entries(projected.packages))if(e[0].includes('@workspace:')&&!keptWorkspaceNames.has(e[0].split('@workspace:')[0]))delete projected.packages[k];
+projected.overrides=Object.fromEntries(Object.entries(lock.overrides??{}).filter(([,v])=>!v.startsWith('workspace:')));
+fs.writeFileSync(path.join(target,'bun.lock'),JSON.stringify(projected,null,2));
+const externalPackageRecordsUnchanged=Object.entries(projected.packages).filter(([,e])=>!e[0].includes('@workspace:')).every(([k,e])=>JSON.stringify(e)===JSON.stringify(lock.packages[k]));
+if(!externalPackageRecordsUnchanged)throw Error('EXTERNAL_LOCK_RECORD_CHANGED');
+fs.copyFileSync(path.join(target,'bun.lock'),path.join(evidence,'projected-capsule.bun.lock'));
+fs.writeFileSync(path.join(evidence,'lock-projection.json'),JSON.stringify({workspacePaths:Object.keys(projected.workspaces),externalPackageRecordsUnchanged}));
 fs.writeFileSync(path.join(evidence,'direct-version-pins.json'),JSON.stringify({tools,productionManifests:manifests},null,2));
 JS
 cd "$TASK_CAPSULE"

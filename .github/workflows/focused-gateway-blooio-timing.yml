@@ -33,7 +33,7 @@ jobs:
           curl --fail --silent --show-error --max-time 30 \
             "https://raw.githubusercontent.com/elizaOS/eliza/$QUALIFICATION_SHA/packages/scripts/qualify-gateway-blooio-timing.sh" \
             --output "$RUNNER_TEMP/gateway-qualification.sh"
-          printf '%s  %s\n' 96bb8f54d4452af00cf6b96b09e0557f2fdc36d4bd4d9d62f16a458aeaa64a41 "$RUNNER_TEMP/gateway-qualification.sh" | sha256sum --check --status
+          printf '%s  %s\n' 3262d381f921e1b59b202ae1e7e73ebd39bc22bb6cc9ee260bcbc3a5c002cdd9 "$RUNNER_TEMP/gateway-qualification.sh" | sha256sum --check --status
           bash -n "$RUNNER_TEMP/gateway-qualification.sh"
           command -v timeout
           command -v unshare
@@ -51,7 +51,7 @@ jobs:
           path: |
             ${{ runner.temp }}/gateway-public-evidence/*.log
             ${{ runner.temp }}/gateway-public-evidence/*.json
-            ${{ runner.temp }}/gateway-public-evidence/resolved-capsule.bun.lock
+            ${{ runner.temp }}/gateway-public-evidence/*.bun.lock
             ${{ runner.temp }}/gateway-public-evidence/*sha256.txt
             ${{ runner.temp }}/gateway-public-evidence/source-commit.txt
             ${{ runner.temp }}/gateway-public-evidence/gateway-index.js
