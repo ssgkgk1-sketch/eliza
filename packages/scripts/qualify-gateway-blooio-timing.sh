@@ -32,6 +32,7 @@ tools.vitest=exact('vitest',originalShared.devDependencies.vitest);
 fs.writeFileSync(path.join(target,'package.json'),JSON.stringify({name:'gateway-public-qualification',private:true,workspaces:Object.keys(manifests),devDependencies:tools,overrides:Object.fromEntries(Object.entries(lock.overrides??{}).filter(([,value])=>!value.startsWith('workspace:')))}));
 fs.writeFileSync(path.join(target,'bunfig.toml'),'[install]\nauto = "disable"\n');
 fs.copyFileSync(path.join(source,'bun.lock'),path.join(evidence,'reviewed-public-source.bun.lock'));
+fs.copyFileSync(path.join(source,'bun.lock'),path.join(target,'bun.lock'));
 fs.writeFileSync(path.join(evidence,'direct-version-pins.json'),JSON.stringify({tools,productionManifests:manifests},null,2));
 JS
 cd "$TASK_CAPSULE"
@@ -43,6 +44,7 @@ timeout --kill-after=5s 120s env -i PATH="$PATH" HOME="$TASK_PUBLIC_HOME" CI=tru
 bun - <<'JS'
 const fs=require('node:fs'),path=require('node:path');
 const original=Bun.JSONC.parse(fs.readFileSync(path.join(process.env.TASK_EVIDENCE,'reviewed-public-source.bun.lock'),'utf8'));
+fs.copyFileSync('bun.lock',path.join(process.env.TASK_EVIDENCE,'resolved-capsule.bun.lock'));
 const installed=Bun.JSONC.parse(fs.readFileSync('bun.lock','utf8'));
 const signature=e=>JSON.stringify([e[0],e.find(x=>typeof x==='string'&&/^sha(?:256|512)-/.test(x))]);
 const allowed=new Set(Object.values(original.packages).map(signature));let checked=0;
