@@ -14,7 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
-          ref: 170188a4836365eb35816e674322173639650d3b
+          ref: a2a07e405122dc4eb1712e673f41be9a22376193
           fetch-depth: 1
           submodules: false
           persist-credentials: false
@@ -29,11 +29,11 @@ jobs:
           QUALIFICATION_SHA: ${{ github.sha }}
         run: |
           set -euo pipefail
-          test "$(git rev-parse HEAD)" = 170188a4836365eb35816e674322173639650d3b
+          test "$(git rev-parse HEAD)" = a2a07e405122dc4eb1712e673f41be9a22376193
           curl --fail --silent --show-error --max-time 30 \
             "https://raw.githubusercontent.com/elizaOS/eliza/$QUALIFICATION_SHA/packages/scripts/qualify-gateway-blooio-timing.sh" \
             --output "$RUNNER_TEMP/gateway-qualification.sh"
-          printf '%s  %s\n' 271e56656b841300cf9d68144f8da66a1678d63e5125f40ab96e76c7b606bd29 "$RUNNER_TEMP/gateway-qualification.sh" | sha256sum --check --status
+          printf '%s  %s\n' 02b43a9682aa5932cea5c634d8424e80f8e79504c2ac56513b973b8a9e55d822 "$RUNNER_TEMP/gateway-qualification.sh" | sha256sum --check --status
           bash -n "$RUNNER_TEMP/gateway-qualification.sh"
           command -v timeout
           command -v unshare
