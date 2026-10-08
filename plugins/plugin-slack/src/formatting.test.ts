@@ -53,6 +53,32 @@ describe("markdownToSlackMrkdwn", () => {
     expect(markdownToSlackMrkdwn("")).toBe("");
   });
 
+  it("keeps whitespace-flanked asterisks literal", () => {
+    // Slack mrkdwn has no backslash escape, and an unpaired * already
+    // renders literally. A * with space beside it must not become italic,
+    // and it must not gain a visible backslash.
+    expect(markdownToSlackMrkdwn("2 * 3 * 4")).toBe("2 * 3 * 4");
+    expect(markdownToSlackMrkdwn("* Use *this* now")).toBe("* Use _this_ now");
+    expect(markdownToSlackMrkdwn("*it* and * not *")).toBe("_it_ and * not *");
+    expect(markdownToSlackMrkdwn("5 * 2 = 10")).toBe("5 * 2 = 10");
+    expect(markdownToSlackMrkdwn("a*b")).toBe("a*b");
+    expect(markdownToSlackMrkdwn("rating: 5*")).toBe("rating: 5*");
+    expect(markdownToSlackMrkdwn("glob `*.ts` here")).toBe("glob `*.ts` here");
+  });
+
+  it("keeps a blockquote marker when markdown omits the space", () => {
+    expect(markdownToSlackMrkdwn(">hello & there")).toBe(">hello &amp; there");
+    expect(markdownToSlackMrkdwn("> spaced")).toBe("> spaced");
+    expect(markdownToSlackMrkdwn(">>nested")).toBe(">>nested");
+    expect(markdownToSlackMrkdwn("3 > 1")).toBe("3 &gt; 1");
+  });
+
+  it("makes a heading one bold span when the title already contains bold", () => {
+    expect(markdownToSlackMrkdwn("# **Summary**")).toBe("*Summary*");
+    expect(markdownToSlackMrkdwn("## **Bold** header")).toBe("*Bold header*");
+    expect(markdownToSlackMrkdwn("# Title")).toBe("*Title*");
+  });
+
   it("drops the whole opening info string and keeps a one-line fence body", () => {
     expect(markdownToSlackMrkdwn("```c++\nint x = 1;\n```")).toBe(
       "```\nint x = 1;\n```",

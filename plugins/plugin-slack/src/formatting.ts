@@ -94,8 +94,11 @@ export function escapeSlackMrkdwn(text: string): string {
   return text
     .split("\n")
     .map((line) => {
-      if (line.startsWith("> ")) {
-        return `> ${escapeSlackMrkdwnContent(line.slice(2))}`;
+      // Slack accepts a leading quote marker without a following space.
+      // Preserve the marker run and escape only the content that follows it.
+      const marker = /^>+/.exec(line)?.[0];
+      if (marker) {
+        return `${marker}${escapeSlackMrkdwnContent(line.slice(marker.length))}`;
       }
       return escapeSlackMrkdwnContent(line);
     })
@@ -147,13 +150,16 @@ function convertBold(text: string): string {
  * Converts markdown italic to Slack mrkdwn
  */
 function convertItalic(text: string): string {
-  // Markdown uses single * for italic, Slack uses _
-  // Then restore bold sentinels to actual asterisks
+  // Markdown uses single * for italic, Slack uses _.
+  // A * followed by whitespace cannot open italic, and one preceded by
+  // whitespace cannot close it, so "2 * 3 * 4" stays literal.
+  // Slack mrkdwn has no backslash escape. An unpaired * already renders
+  // literally, so do not prefix leftovers with \.
   const converted = text.replace(
-    /(?<!\*)\*(?!\*)(.+?)(?<!\*)\*(?!\*)/g,
+    /(?<!\*)\*(?!\*)(?!\s)(.+?)(?<!\s)(?<!\*)\*(?!\*)/g,
     "_$1_",
   );
-  return converted.replace(new RegExp(BOLD_SENTINEL, "g"), "*");
+  return converted.replaceAll(BOLD_SENTINEL, "*");
 }
 
 /**
@@ -237,10 +243,13 @@ function convertLinks(text: string): string {
  * Uses a sentinel to prevent headings from being matched by italic converter
  */
 function convertHeadings(text: string): string {
-  return text.replace(
-    /^#{1,6}\s+(.+)$/gm,
-    `${BOLD_SENTINEL}$1${BOLD_SENTINEL}`,
-  );
+  return text.replace(/^#{1,6}\s+(.+)$/gm, (_match, content: string) => {
+    // A heading is one Slack bold span. Leaving ** inside that span lets the
+    // later bold pass insert more asterisks, so "## **Bold** header" is sent
+    // as "**Bold* header*".
+    const flattened = content.replace(/\*\*(.+?)\*\*/g, "$1");
+    return `${BOLD_SENTINEL}${flattened}${BOLD_SENTINEL}`;
+  });
 }
 
 /**
