@@ -12,7 +12,7 @@ fail_preflight() {
 
 command -v node >/dev/null || fail_preflight NODE_UNAVAILABLE
 command -v bun >/dev/null || fail_preflight BUN_UNAVAILABLE
-[[ "$(node --version 2>/dev/null)" == "v24.15.0" ]] \
+[[ "$(node --version 2>/dev/null)" == "v24.22.1" ]] \
   || fail_preflight NODE_VERSION_INVALID
 [[ "$(bun --version 2>/dev/null)" == "1.4.2" ]] \
   || fail_preflight BUN_VERSION_INVALID

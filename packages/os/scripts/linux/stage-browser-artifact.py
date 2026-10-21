@@ -22,7 +22,7 @@ BITWARDEN_POLICY = {"ExtensionSettings": {BITWARDEN_ID: {
     "installation_mode": "normal_installed",
     "update_url": "https://clients2.google.com/service/update2/crx",
 }}}
-NODE_VERSION = "24.15.0"
+NODE_VERSION = "24.22.1"
 MACHINES = {"x86_64": 62, "arm64": 183, "riscv64": 243}
 NODE_ARCHES = {"x86_64": "x64", "arm64": "arm64"}
 RESOURCES = {"manifest.json", "background.mjs", "commands.mjs", "protocol.mjs", "runtime-config.mjs", "native-connection.mjs"}

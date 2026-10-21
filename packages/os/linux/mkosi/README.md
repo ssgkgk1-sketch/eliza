@@ -35,7 +35,7 @@ fails in every mode. Development/fixture absence records `unavailable` in
 
 The inner schema v1 fields are `architecture`, `sourceCommit`, `extensionId`,
 `node`, `chromium`, and `files`, plus `schemaVersion`. The extension ID is
-`pmldpcoefklbdbgmggcejkfoinmjfeio`. Node provenance requires version `24.15.0`,
+`pmldpcoefklbdbgmggcejkfoinmjfeio`. Node provenance requires version `24.22.1`,
 its exact official Linux x64/arm64 archive URL (`sourceArchive`) and archive
 SHA-256 (`sourceArchiveSha256`); riscv64 has no admitted pinned Node artifact.
 Chromium provenance supplies its 40-character `revision` and four-part `version`.

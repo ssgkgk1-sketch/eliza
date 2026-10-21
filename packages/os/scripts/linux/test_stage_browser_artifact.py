@@ -26,7 +26,7 @@ class BrowserStagingTest(unittest.TestCase):
         self.source = "1" * 40
         self.receipt.write_text(json.dumps({"schemaVersion": 1, "sourceCommit": self.source, "architecture": "x86_64", "archiveSha256": "2" * 64}))
         self.receipt.chmod(0o600)
-        self.data = {"schemaVersion": 1, "architecture": "x86_64", "sourceCommit": self.source, "node": {"version": "24.15.0", "sourceArchive": "https://nodejs.org/dist/v24.15.0/node-v24.15.0-linux-x64.tar.xz", "sourceArchiveSha256": "3" * 64}, "chromium": {"revision": "4" * 40, "version": "156.0.8072.0"}, "extensionId": MODULE.EXTENSION_ID, "files": {}}
+        self.data = {"schemaVersion": 1, "architecture": "x86_64", "sourceCommit": self.source, "node": {"version": "24.22.1", "sourceArchive": "https://nodejs.org/dist/v24.22.1/node-v24.22.1-linux-x64.tar.xz", "sourceArchiveSha256": "3" * 64}, "chromium": {"revision": "4" * 40, "version": "156.0.8072.0"}, "extensionId": MODULE.EXTENSION_ID, "files": {}}
         elf = b"\x7fELF\x02\x01\x01" + b"\x00" * 11 + (62).to_bytes(2, "little")
         for name in MODULE.REQUIRED - {MODULE.OVERLAY}:
             executable = name in {"node/bin/node", "chromium/chrome"}

@@ -121,7 +121,7 @@ test("recovery preserves exact inventory and draft PR gates at valid root tool p
     steps.find((step) => step.uses?.startsWith("actions/setup-node@")).with[
       "node-version"
     ],
-    "24.15.0",
+    "24.22.1",
   );
   const commands = steps.map((step) => step.run ?? "").join("\n");
   for (const match of commands.matchAll(/node ([\w/.-]+\.(?:mjs|ts))/g))

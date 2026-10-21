@@ -194,7 +194,7 @@ export class SQLiteStorageBase implements IStorage {
           if (process.versions.bun) {
             throw this.failure(
               "MIGRATION_REQUIRES_NODE",
-              "Back up and open this legacy database with pinned Node 24.15.0 to migrate before using Bun",
+              "Back up and open this legacy database with pinned Node 24.22.1 to migrate before using Bun",
             );
           }
           if (codec !== undefined)

@@ -10,7 +10,7 @@ Builders use the enclosing Eliza checkout, or `ELIZAOS_ELIZA_ROOT` when explicit
 set.
 
 Install workspace dependencies with Bun 1.4.2 at the repository root. Use Node
-24.15.0 for scripts. From the repository root:
+24.22.1 for scripts. From the repository root:
 
 ```bash
 bun run --cwd packages/os build                 # installer web frontends only
@@ -50,7 +50,7 @@ node packages/app/scripts/package-linux-gtk-artifact.ts produce \
 
 Use `gn desc "$LINUX_BUILD" //chrome:chrome runtime_deps --format=json` for the
 closure. The assembler requires every declared file, generated GRIT header,
-reviewed Linux overlay, and pinned official Node 24.15.0 archive; it neither
+reviewed Linux overlay, and pinned official Node 24.22.1 archive; it neither
 fetches inputs nor qualifies runtime behavior. Escaping dependencies and empty required assets fail explicitly. Empty non-executable
 generated stamps and Python package markers remain in the hashed closure. Run its isolated tests
 with `python3 packages/os/scripts/linux/test_assemble_browser_payload.py`.

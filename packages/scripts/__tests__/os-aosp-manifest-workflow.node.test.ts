@@ -34,7 +34,7 @@ test("AOSP index publication runs the monorepo verifier under the protected rele
     job.steps.find((step) => step.uses?.startsWith("actions/setup-node@")).with[
       "node-version"
     ],
-    "24.15.0",
+    "24.22.1",
   );
   assert.ok(
     existsSync(

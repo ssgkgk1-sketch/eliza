@@ -61,7 +61,7 @@
     ],
     "runtime": "node",
     "platformDetails": {
-      "node": "Node 24.15.0 node:sqlite or Bun 1.4.2 bun:sqlite; one database per agent; Android device qualification required"
+      "node": "Node 24.22.1 node:sqlite or Bun 1.4.2 bun:sqlite; one database per agent; Android device qualification required"
     }
   }
 }

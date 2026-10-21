@@ -18,7 +18,7 @@ const REPO_ROOT = path.resolve(
   "../..",
 );
 const REQUIRED_BUN = "1.4.2";
-const REQUIRED_NODE = "v24.15.0";
+const REQUIRED_NODE = "v24.22.1";
 const MIN_FREE_BYTES = 8 * 1024 ** 3;
 
 function firstLine(value) {

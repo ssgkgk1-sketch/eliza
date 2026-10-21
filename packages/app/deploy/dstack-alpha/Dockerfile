@@ -17,4 +17,4 @@ RUN chmod 0555 /opt/dstack/dstack-verifier \
   && mkdir -p /data/eliza \
   && cd /opt \
   && sha256sum dstack/dstack-verifier dstack/dstack-verifier.toml > /opt/eliza-alpha/pins.sha256 \
-  && node -e 'if (process.versions.node !== "24.15.0") process.exit(1)'
+  && node -e 'if (process.versions.node !== "24.22.1") process.exit(1)'

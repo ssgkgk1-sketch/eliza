@@ -62,7 +62,7 @@ env:
   # provider key present and every "live" test self-skips.
   ELIZA_UI_SMOKE_LIVE_STACK: "1"
   BUN_VERSION: "1.4.2"
-  NODE_VERSION: "24.15.0"
+  NODE_VERSION: "24.22.1"
   NODE_NO_WARNINGS: "1"
   CEREBRAS_API_KEY: ${{ secrets.CEREBRAS_API_KEY }}
   OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}

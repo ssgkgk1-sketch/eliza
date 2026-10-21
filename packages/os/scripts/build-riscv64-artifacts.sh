@@ -15,7 +15,7 @@
 #                       riscv64-linux-musl — every cross-build here is
 #                       zig/musl, so no Android NDK is needed)
 #   - cmake 3.21+      (drives every package's cross-build)
-#   - Node 24.15.0         (drives compile-libllama.ts)
+#   - Node 24.22.1         (drives compile-libllama.ts)
 #
 # Usage:
 #   ELIZA_RISCV64_SMOKE=1 bash scripts/build-riscv64-artifacts.sh
@@ -61,7 +61,7 @@ fi
 
 NODE_BIN="${NODE_BIN:-$(command -v node || true)}"
 if [ -z "$NODE_BIN" ]; then
-    echo "[build-riscv64-artifacts] node not on PATH. Install Node 24.15.0." >&2
+    echo "[build-riscv64-artifacts] node not on PATH. Install Node 24.22.1." >&2
     exit 2
 fi
 eliza_root="$("$NODE_BIN" "$repo_root/scripts/eliza-source.ts")"

@@ -24,7 +24,7 @@ import {
 } from "./host-agent.ts";
 
 const tmpDirs = [];
-const PINNED_NODE_VERSION = "24.15.0";
+const PINNED_NODE_VERSION = "24.22.1";
 
 function resolvePinnedNode() {
   const candidates = [];

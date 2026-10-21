@@ -24,7 +24,7 @@
     }
   },
   "engines": {
-    "node": "24.15.0"
+    "node": "24.22.1"
   },
   "scripts": {
     "postinstall": "bun packages/scripts/patch-punycode-deprecation.ts && bun packages/scripts/patch-llama-cpp-capacitor.ts && bun packages/scripts/patch-electrobun-linux-cef-profile.ts && bun packages/scripts/ensure-workspace-symlinks.ts && bun packages/scripts/build-private-workspace-packages.ts && bun packages/scripts/build-views.ts && bun packages/app/scripts/ensure-fused-inference-install.ts",

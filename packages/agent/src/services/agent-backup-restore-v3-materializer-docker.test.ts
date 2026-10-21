@@ -77,7 +77,7 @@ async function fixture(persistent = false) {
   const image = docker(
     "image",
     "inspect",
-    "node:24.15.0-alpine",
+    "node:24.22.1-alpine",
     "--format",
     "{{.Id}}",
   ).trim();

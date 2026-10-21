@@ -41,12 +41,12 @@ function fixture(altered = false) {
   accessSync(
     path.join(repo, "packages/agent/dist/services/agent-backup-restore-v3-quarantine-host.js"),
   );
-  const probe = created(["--network", "none", "--entrypoint", "/bin/true", "node:24.15.0-alpine"]);
+  const probe = created(["--network", "none", "--entrypoint", "/bin/true", "node:24.22.1-alpine"]);
   const descriptor = JSON.parse(
     docker("inspect", "--format", "{{json .ImageManifestDescriptor}}", probe),
   );
   const repoDigest: string = JSON.parse(
-    docker("image", "inspect", "node:24.15.0-alpine", "--format", "{{json .RepoDigests}}"),
+    docker("image", "inspect", "node:24.22.1-alpine", "--format", "{{json .RepoDigests}}"),
   )[0];
   const imageDigest = repoDigest.split("@")[1];
   const child = descriptor.digest;
