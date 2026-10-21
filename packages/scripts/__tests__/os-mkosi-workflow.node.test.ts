@@ -66,7 +66,7 @@ test("Linux image workflow retains all architecture and exact-byte promotion gat
     assert.equal(
       job.steps.find((step) => step.uses?.startsWith("actions/setup-node@"))
         .with["node-version"],
-      "24.15.0",
+      "24.22.1",
     );
     const scripts = job.steps.map((step) => step.run ?? "").join("\n");
     assert.doesNotMatch(scripts, /\$\{\{ inputs\./);

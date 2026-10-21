@@ -51,7 +51,7 @@ class AssemblyTest(unittest.TestCase):
                            "inputs": PIN["sha256"], "outputs": {"chrome/output.cc": "c" * 64}}
         self.save_overlay()
         self.pack_resources()
-        self.archive = self.root / "node-v24.15.0-linux-x64.tar.xz"
+        self.archive = self.root / "node-v24.22.1-linux-x64.tar.xz"
         self.make_archive()
         self.pin = patch.dict(M.NODE_SHA256, {"x86_64": M.STAGE.digest(self.archive)})
         self.pin.start()
@@ -85,7 +85,7 @@ class AssemblyTest(unittest.TestCase):
         self.write(self.build / "resources.pak", struct.pack("<IBxxxHH", 5, 0, len(values), 0) + table + chunks)
 
     def make_archive(self, extra=None, machine=62):
-        prefix = "node-v24.15.0-linux-x64/"
+        prefix = "node-v24.22.1-linux-x64/"
         with tarfile.open(self.archive, "w:xz") as tar:
             for name, data in (("bin/node", elf(machine)), ("LICENSE", b"fixture license")):
                 entry = tarfile.TarInfo(prefix + name)
@@ -233,7 +233,7 @@ class AssemblyTest(unittest.TestCase):
     def test_node_archive_traversal_links_and_duplicates_rejected(self):
         for kind in ("escape", "hardlink", "symlink", "duplicate"):
             with self.subTest(kind=kind):
-                member = tarfile.TarInfo("../escape" if kind == "escape" else "node-v24.15.0-linux-x64/bin/node" if kind == "duplicate" else "node-v24.15.0-linux-x64/bin/link")
+                member = tarfile.TarInfo("../escape" if kind == "escape" else "node-v24.22.1-linux-x64/bin/node" if kind == "duplicate" else "node-v24.22.1-linux-x64/bin/link")
                 member.mode = 0o644
                 if kind in {"hardlink", "symlink"}:
                     member.type = tarfile.LNKTYPE if kind == "hardlink" else tarfile.SYMTYPE

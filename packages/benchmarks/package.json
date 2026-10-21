@@ -28,7 +28,7 @@
     "test:infrastructure": "node --test lib/target-package.test.ts lib/kpi-reporting.test.mjs"
   },
   "engines": {
-    "node": "24.15.0",
+    "node": "24.22.1",
     "bun": "1.4.2"
   },
   "devDependencies": {

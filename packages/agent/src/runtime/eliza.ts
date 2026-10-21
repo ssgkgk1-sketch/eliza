@@ -378,7 +378,7 @@ async function getPluginSqlite(): Promise<
 > {
   if (isMobilePlatform()) {
     throw new ElizaError(
-      "SQLite storage requires the standalone Node 24.15.0 host",
+      "SQLite storage requires the standalone Node 24.22.1 host",
       { code: "SQLITE_RUNTIME_UNSUPPORTED" },
     );
   }

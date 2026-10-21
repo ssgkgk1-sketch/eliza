@@ -38,7 +38,7 @@ function preflightFixture(serial) {
   fs.mkdirSync(bin);
   executable(
     path.join(bin, "node"),
-    '#!/bin/sh\nif [ "$1" = "--version" ]; then echo v24.15.0; else echo arm64; fi\n',
+    '#!/bin/sh\nif [ "$1" = "--version" ]; then echo v24.22.1; else echo arm64; fi\n',
   );
   executable(path.join(bin, "bun"), "#!/bin/sh\necho 1.4.2\n");
   executable(path.join(bin, "uname"), "#!/bin/sh\necho aarch64\n");

@@ -70,7 +70,7 @@ jobs:
         run: '"$RUNNER_TEMP/workflow-linters/actionlint" -config-file .github/actionlint.yaml'
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
         with:
-          node-version: 24.15.0
+          node-version: 24.22.1
       - name: Resolve last successfully validated ancestor
         id: baseline
         env:
@@ -160,7 +160,7 @@ jobs:
           submodules: false
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
         with:
-          node-version: 24.15.0
+          node-version: 24.22.1
       - name: Preserve validation results
         if: ${{ always() && !cancelled() }}
         run: |

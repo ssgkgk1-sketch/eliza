@@ -144,7 +144,7 @@ test("RISC-V imported builders use the explicitly selected Zig executable", asyn
     const node = path.join(bin, "node");
     await writeFile(
       node,
-      '#!/bin/sh\ncase "$1" in --version) echo v24.15.0;; *eliza-source.ts) printf "%s\\n" "$FIXTURE_SOURCE";; *) zig version;; esac\n',
+      '#!/bin/sh\ncase "$1" in --version) echo v24.22.1;; *eliza-source.ts) printf "%s\\n" "$FIXTURE_SOURCE";; *) zig version;; esac\n',
       { mode: 0o700 },
     );
     const log = path.join(directory, "zig.log");

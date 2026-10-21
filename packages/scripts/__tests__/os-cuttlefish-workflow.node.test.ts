@@ -35,7 +35,7 @@ test("Cuttlefish runs from OS package paths with pinned Node and a gated native 
     job.steps.find((s) => s.uses?.startsWith("actions/setup-node@")).with[
       "node-version"
     ],
-    "24.15.0",
+    "24.22.1",
   );
   const commands = job.steps
     .flatMap((s) => [s.run ?? "", s.with?.script ?? ""])

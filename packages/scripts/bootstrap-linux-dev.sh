@@ -7,7 +7,7 @@ set -euo pipefail
 
 BUN_VERSION="1.4.2"
 readonly BUN_VERSION
-NODE_VERSION="24.15.0"
+NODE_VERSION="24.22.1"
 readonly NODE_VERSION
 REPO_ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/../.." && pwd -P)"
 readonly REPO_ROOT
@@ -48,13 +48,13 @@ case "$(uname -m)" in
     readonly TOOLCHAIN_ARCH="x64"
     readonly BUN_ARCH="x64"
     readonly BUN_ARCHIVE_SHA256="951ee2aee855f08595aeec6225226a298d3fea83a3dcd6465c09cbccdf7e848f"
-    readonly NODE_ARCHIVE_SHA256="472655581fb851559730c48763e0c9d3bc25975c59d518003fc0849d3e4ba0f6"
+    readonly NODE_ARCHIVE_SHA256="6c172a9ab6718f7b801fb5a7bd486af2ee5e32758086a04b84fcce2aa77095e6"
     ;;
   aarch64|arm64)
     readonly TOOLCHAIN_ARCH="arm64"
     readonly BUN_ARCH="aarch64"
     readonly BUN_ARCHIVE_SHA256="a27ffb63a8310375836e0d6f668ae17fa8d8d18b88c37c821c65331973a19a3b"
-    readonly NODE_ARCHIVE_SHA256="f3d5a797b5d210ce8e2cb265544c8e482eaedcb8aa409a8b46da7e8595d0dda0"
+    readonly NODE_ARCHIVE_SHA256="dbabf7a1cbf947e6059ffad2c27b80041db97dea1e553b62afdee7f13fca336e"
     ;;
   *)
     echo "linux-bootstrap: unsupported architecture: $(uname -m)" >&2

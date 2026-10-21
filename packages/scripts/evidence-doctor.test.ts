@@ -264,14 +264,14 @@ describe("evidence toolchain doctor", () => {
       createDoctorReport(probes, {
         platform: "linux",
         architecture: "x64",
-        nodeVersion: "v24.15.0",
+        nodeVersion: "v24.22.1",
       }),
       {
         schemaVersion: 1,
         platform: {
           os: "linux",
           architecture: "x64",
-          nodeVersion: "v24.15.0",
+          nodeVersion: "v24.22.1",
         },
         ok: false,
         requiredMissing: ["required"],

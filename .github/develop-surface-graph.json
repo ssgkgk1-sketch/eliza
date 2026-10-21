@@ -5,7 +5,7 @@
   "reusePolicy": "current-run-only",
   "environment": {
     "bun": "1.4.2",
-    "node": "24.15.0",
+    "node": "24.22.1",
     "runnerPolicy": "develop-full-v1",
     "runnerImageIdentity": "not-bound"
   },

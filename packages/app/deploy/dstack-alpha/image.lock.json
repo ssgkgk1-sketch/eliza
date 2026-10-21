@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
   "platform": "linux/amd64",
-  "nodeVersion": "24.15.0",
+  "nodeVersion": "24.22.1",
   "bunVersion": "1.4.2",
   "baseImages": {
-    "node:24.15.0-slim": "sha256:4e6b70dd6cbfc88c8157ba19aa3d9f9cce6ba4703576d55459e45efcbc9c5f5d",
+    "node:24.22.1-slim": "sha256:1681862882da07ee5476fee047bcf34138833f1df42633bb25bcb0f438d5bf3d",
     "oven/bun:1.4.2": "sha256:9114c058aeae42162ee16dd5084b95fe9473970bb6bcb5b232ab1630f0546895"
   },
   "verifierImage": {

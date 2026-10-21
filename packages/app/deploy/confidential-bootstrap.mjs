@@ -57,7 +57,7 @@ function utcTimestamp(value) {
 
 try {
   if (
-    process.versions.node !== "24.15.0" ||
+    process.versions.node !== "24.22.1" ||
     process.argv.length !== 3 ||
     !isAbsolute(process.argv[2]) ||
     process.env.NODE_TLS_REJECT_UNAUTHORIZED === "0"

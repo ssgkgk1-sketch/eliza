@@ -112,7 +112,7 @@ jobs:
         with:
           setup-python: "true"
           bun-version: "1.4.2"
-          node-version: "24.15.0"
+          node-version: "24.22.1"
           skip-avatar-clone: "true"
           no-vision-deps: "true"
           install-native-deps: "false"

@@ -21,7 +21,7 @@ permissions:
 env:
   CI: "true"
   BUN_VERSION: 1.4.2
-  NODE_VERSION: 24.15.0
+  NODE_VERSION: 24.22.1
   NODE_NO_WARNINGS: "1"
   NODE_OPTIONS: --max-old-space-size=8192
 jobs:
@@ -240,7 +240,7 @@ jobs:
     env:
       CI: "true"
       BUN_VERSION: 1.4.2
-      NODE_VERSION: 24.15.0
+      NODE_VERSION: 24.22.1
       NODE_NO_WARNINGS: "1"
       NODE_OPTIONS: --max-old-space-size=8192
       ELIZA_SKIP_FUSED_INFERENCE_SETUP: "1"
@@ -278,7 +278,7 @@ jobs:
     env:
       CI: "true"
       BUN_VERSION: 1.4.2
-      NODE_VERSION: 24.15.0
+      NODE_VERSION: 24.22.1
       NODE_NO_WARNINGS: "1"
       NODE_OPTIONS: --max-old-space-size=8192
       ELIZA_SKIP_FUSED_INFERENCE_SETUP: "1"
@@ -320,7 +320,7 @@ jobs:
     env:
       CI: "true"
       BUN_VERSION: 1.4.2
-      NODE_VERSION: 24.15.0
+      NODE_VERSION: 24.22.1
       NODE_NO_WARNINGS: "1"
       NODE_OPTIONS: --max-old-space-size=8192
       ELIZA_SKIP_FUSED_INFERENCE_SETUP: "1"
@@ -392,7 +392,7 @@ jobs:
     env:
       CI: "true"
       BUN_VERSION: 1.4.2
-      NODE_VERSION: 24.15.0
+      NODE_VERSION: 24.22.1
       NODE_NO_WARNINGS: "1"
       NODE_OPTIONS: --max-old-space-size=8192
       ELIZA_SKIP_FUSED_INFERENCE_SETUP: "1"
@@ -464,7 +464,7 @@ jobs:
     env:
       CI: "true"
       BUN_VERSION: 1.4.2
-      NODE_VERSION: 24.15.0
+      NODE_VERSION: 24.22.1
       NODE_OPTIONS: --max-old-space-size=4096
       TEST_LANE: pr
       ELIZA_LIVE_TEST: "0"
@@ -523,7 +523,7 @@ jobs:
     env:
       CI: "true"
       BUN_VERSION: 1.4.2
-      NODE_VERSION: 24.15.0
+      NODE_VERSION: 24.22.1
       NODE_OPTIONS: --max-old-space-size=4096
       TEST_LANE: pr
       ELIZA_LIVE_TEST: "0"
@@ -574,5 +574,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     env:
       BUN_VERSION: 1.4.2
-      NODE_VERSION: 24.15.0
+      NODE_VERSION: 24.22.1
     needs: preflight

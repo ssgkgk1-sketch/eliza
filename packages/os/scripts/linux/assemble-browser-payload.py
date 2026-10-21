@@ -31,11 +31,11 @@ SPEC.loader.exec_module(STAGE)
 require = STAGE.require
 AssemblyError = STAGE.StagingError
 NODE_SHA256 = {
-    "x86_64": "472655581fb851559730c48763e0c9d3bc25975c59d518003fc0849d3e4ba0f6",
-    "arm64": "f3d5a797b5d210ce8e2cb265544c8e482eaedcb8aa409a8b46da7e8595d0dda0",
+    "x86_64": "6c172a9ab6718f7b801fb5a7bd486af2ee5e32758086a04b84fcce2aa77095e6",
+    "arm64": "dbabf7a1cbf947e6059ffad2c27b80041db97dea1e553b62afdee7f13fca336e",
 }
-# Reviewed https://nodejs.org/dist/v24.15.0/SHASUMS256.txt, SHA256
-# 1e812945dee26c3e4ca41a8c0b582668ff2401ba0ae727a122300c0e8514edb0.
+# Reviewed https://nodejs.org/dist/v24.22.1/SHASUMS256.txt, SHA256
+# fdfbffc969c0f604beff0124d409b33a43b53f5c681d6220f80023e0d6df9dc4.
 BRIDGE_SCRIPTS = Path(__file__).resolve().parents[2] / "browser/scripts"
 NATIVE_HOST = BRIDGE_SCRIPTS / "native-host.mjs"
 UPSTREAM = BRIDGE_SCRIPTS / "chromium/upstream.json"

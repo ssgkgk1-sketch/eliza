@@ -38,7 +38,7 @@ jobs:
     timeout-minutes: 40
     environment: staging
     env:
-      NODE_VERSION: "24.15.0"
+      NODE_VERSION: "24.22.1"
       EXPECTED_DEPLOY_SHA: ${{ inputs.expected_deploy_sha }}
       SMART_BASE_URL: ${{ inputs.smart_base_url }}
       CONTROL_BASE_URL: ${{ inputs.control_base_url }}

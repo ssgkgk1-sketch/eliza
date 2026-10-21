@@ -36,7 +36,7 @@ nested `AGENTS.md` files.
   direct sentences, explain technical terms, and write for a non-technical reader.
 
 - Preserve unrelated changes in this shared working tree.
-- Use pinned Bun 1.4.2 and Node 24.15.0, ESM, and the repository's Biome config.
+- Use pinned Bun 1.4.2 and Node 24.22.1, ESM, and the repository's Biome config.
 - Keep core independent of hosts; hosts compose assistant behavior, storage,
   and model providers. Validate untrusted input at boundaries.
 - Preserve authorization, tenant isolation, cancellation, and effect receipts.
